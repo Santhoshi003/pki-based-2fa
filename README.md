@@ -108,42 +108,9 @@ pki-2faa/
 
 ---
 
-## API Endpoints
+##API Endpoints
 
-### Decrypt Seed
-POST `/decrypt-seed`
-
-``json
-{
-  "encrypted_seed": "<base64-string>"
-}
-
-Generate 2FA Code
-
-GET /generate-2fa
-
-{
-  "code": "123456",
-  "valid_for": 30
-}
-
-Verify 2FA Code
-
-POST /verify-2fa
-
-{
-  "code": "123456"
-}
-
-{
-  "valid": true
-}
-
-Configuration
-
-This service is fully containerized and does not require external environment variables.
-
-Security files used:
+Security Files Used
 
 student_private.pem
 
@@ -153,30 +120,36 @@ instructor_public.pem
 
 encrypted_seed.txt
 
-Running the Project
+##Running the Project
+
+Build and Start the Service
+
 docker-compose build --no-cache
 docker-compose up -d
 
+Verify Running Containers
 docker ps
 
+API Base URL
 http://localhost:8080
 
 Docker & Persistence
 Volume	Purpose
 seed-data	Decrypted seed storage
 cron-output	OTP log storage
-Background Cron Job
 
+Background Cron Job
 Executes every minute
 
 Generates a valid OTP
 
 Logs output to /cron/last_code.txt
 
+View Cron Logs
+
 docker exec pki-2fa sh -c "cat /cron/last_code.txt"
 
-Security Design
-
+##Security Design
 No plaintext secret exposure
 
 Strong asymmetric encryption
@@ -187,12 +160,20 @@ Isolated background execution
 
 Container-level isolation
 
-Testing
+##Testing
+Decrypt Seed
+
 curl -X POST http://localhost:8080/decrypt-seed \
 -H "Content-Type: application/json" \
 -d '{"encrypted_seed":"<base64-string>"}'
 
+##Generate OTP
 curl http://localhost:8080/generate-2fa
+
+##Verify OTP
+curl -X POST http://localhost:8080/verify-2fa \
+-H "Content-Type: application/json" \
+-d '{"code":"123456"}'
 
 curl -X POST http://localhost:8080/verify-2fa \
 -H "Content-Type: application/json" \
