@@ -85,25 +85,27 @@ Docker Volume
 
 
 pki-2faa/
-│── app/
-│ └── main.py
+├── app/
+│   └── main.py
 │
-│── scripts/
-│ └── log_2fa_cron.py
+├── scripts/
+│   └── log_2fa_cron.py
 │
-│── cron/
-│ └── 2fa-cron
+├── cron/
+│   └── 2fa-cron
 │
-│── Dockerfile
-│── docker-compose.yml
-│── requirements.txt
-│── request_seed.py
-│── sign_commit.py
-│── encrypted_seed.txt
-│── student_private.pem
-│── student_public.pem
-│── instructor_public.pem
-│── README.md
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── request_seed.py
+├── encrypted_seed.txt
+├── student_private.pem
+├── student_public.pem
+├── instructor_public.pem
+├── .gitignore
+├── .gitattributes
+└── README.md
+
 
 
 ---
